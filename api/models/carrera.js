@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   carrera.hasMany(models.materia, {
     as: "Materias-Relacionadas",
     foreignKey: "id_carrera",
-    sourceKey: 'id'
+    //sourceKey: 'id'
   })
   ///////////////////////
 */
