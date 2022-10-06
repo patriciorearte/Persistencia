@@ -2,10 +2,12 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
-router.get("/", (req, res) => {
+router.get("/:paginaActual&:cantidad", (req, res) => {
   console.log("Esto es un mensaje para ver en consola");
   models.materia
     .findAll({
+      offset: (parseInt(req.params.paginaActual) * parseInt(req.params.cantidad)), 
+      limit: parseInt(req.params.cantidad),
       attributes: ["id", "nombre", "id_carrera"],
       include: [{as: 'Carrera-Relacionada', model:models.carrera, attributes: ["id", "nombre"]}]
     }) 
