@@ -2,6 +2,17 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
+router.get("/", (req, res) => {
+  console.log("Esto es un mensaje para ver en consola");
+  models.alumno
+    .findAll({
+      attributes: ["id", "nombre" ,"apellido", "id_carrera"],
+      include: [{as: 'Carrera-Alumno', model:models.carrera, attributes: ["id", "nombre"]}]
+    })
+    .then(alumnos => res.send(alumnos))
+    .catch(() => res.sendStatus(500));
+});
+
 router.get("/:paginaActual&:cantidad", (req, res) => {
   console.log("Esto es un mensaje para ver en consola");
   models.alumno

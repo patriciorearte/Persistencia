@@ -2,6 +2,15 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models");
 
+router.get("/", (req, res) => {
+  console.log("Esto es un mensaje para ver en consola");
+  models.carrera
+    .findAll({
+      attributes: ["id", "nombre"]
+    })
+    .then(carreras => res.send(carreras))
+    .catch(() => res.sendStatus(500));
+});
 router.get("/:paginaActual&:cantidad", (req, res) => {
   console.log("Esto es un mensaje para ver en consola");
   models.carrera
