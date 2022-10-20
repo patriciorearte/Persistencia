@@ -5,7 +5,23 @@ var models = require("../models");
 const encriptador= require("bcrypt");
 const jsonToken= require("jsonwebtoken");
 const usuario2 = require("../models/usuario2");
-router.get("/", (req, res) => {
+
+
+
+const verificacionDeToken=(req,res,next)=>{
+  const authHeader=req.headers["uuthorization"];
+  const token= authHeader && authHeader.split(" ")[1];
+  if(token==null);
+    return res.status(401).send("token requerido");
+  jsonToken.verify(token,"secret",(err,user)=>{
+    if(err)return res.status(403).send("token invalido");
+    req.user=user;
+    next()
+  });
+}
+
+ 
+router.get("/",verificacionDeToken, (req, res) => {
   console.log("Esto es un mensaje para ver en consola");
   models.usuario2
     .findAll({
