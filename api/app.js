@@ -6,6 +6,7 @@ var logger = require('morgan');
 var materiasRouter = require('./routes/materias');
 var carrerasRouter = require('./routes/carreras');
 var alumnosRouter = require('./routes/alumnos');
+var usuariosRouter = require('./routes/usuarios');
 var app = express();
 
 // view engine setup
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/usu',usuariosRouter);
 app.use('/mat', materiasRouter);
 app.use('/car', carrerasRouter);
 app.use('/alu', alumnosRouter);
